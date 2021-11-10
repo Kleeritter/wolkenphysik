@@ -13,7 +13,6 @@ for t in range(-40,60):
     mp=np.append(mp, m)
 
 
-
 #Clausiusclaperyon
 cp = np.array([])
 lv= 2.5*10**6
@@ -29,7 +28,8 @@ plt.plot(te,cp, label="Clausius-Clapperyeon")
 plt.xlabel('Temperatur in °C')
 plt.ylabel('Sättigungsdamfpdruck in Pa')
 plt.legend( )
-plt.savefig('VergleichMagnus-Classius.png')
+plt.title('Vergleich der Classiusclapereyon Gleichung und der Magnus-Formel')
+plt.savefig('VergleichMagnus-Classius.png',format='png',dpi = 1200)
 plt.close()
 
 # Aufgabe e)
@@ -41,14 +41,24 @@ cpi= 4187
 to = 273.15
 for t in range(233,333):
     t = t + 0.15 #Korrektur für Temperatur
-    c = 611.2*math.exp(((cpv-cpi)/(lvo))*math.log(t)-((lvo - (cpv-cpi)*to)/(rv*t)))
+    c = 611.2*math.exp(((cpv-cpi)*(math.log(t)-math.log(to)))/(rv)+((lvo - to*(cpv-cpi))/(rv)*(((-1)/(t)+((1)/(to))))))
     cppp=np.append(cppp,c)
 
 plt.plot(te,mp, label="Magnus")
 plt.plot(te,cp, label="Clausius-Clapperyeon")
 plt.plot(te,cppp, label="Clausius-Clapperyeon verbessert")
 plt.legend()
+plt.title('Vergleich der verbesserten CC Gleichung und der Magnus-Formel')
 plt.xlabel('Temperatur in °C')
 plt.ylabel('Sättigungsdamfpdruck in Pa')
-plt.savefig('Vergleich_Magnus_Classius_Classiusverbessert')
-
+plt.savefig('Vergleich_Magnus_Classius_Classiusverbessert.png',format='png',dpi = 1200)
+plt.close()
+#Aufgabe e) Quotient
+quotientenarray= cppp/mp
+plt.plot(te,quotientenarray, label="Quotient Classius/Magnus")
+plt.title('Quotient der verbesserten CC Gleichung und der Magnus-Formel')
+plt.legend()
+plt.axis([-40,60,0.8,1.2])
+plt.xlabel('Temperatur in °C')
+plt.ylabel('Quotient')
+plt.savefig('Quotient_Magnus_Classius_Classiusverbessert.png',format='png',dpi = 1200)

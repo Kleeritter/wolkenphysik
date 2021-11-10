@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math
-alas = np.arange(0,10,1)
-blas= np.arange(10,20,1)
+
+#Aufgabe c)
 
 te= np.arange(-40,60,1)
 
@@ -24,27 +24,15 @@ for t in range(233,333):
     c = 611.2*math.exp((lv*dt)/(rv*t*273.15))
     cp=np.append(cp,c)
 
-plt.plot(te,mp, te, cp)
-plt.savefig('Vergleich.png')
-plt.legend()
+plt.plot(te,mp, label="Magnus")
+plt.plot(te,cp, label="Clausius-Clapperyeon")
+plt.xlabel('Temperatur in °C')
+plt.ylabel('Sättigungsdamfpdruck in Pa')
+plt.legend( )
+plt.savefig('VergleichMagnus-Classius.png')
+plt.close()
 
-# Aufgabe e
-cpp = np.array([])
-lvo= 2.5*10**6
-rv = 461.4
-cpv =1870
-cpi= 4187
-to = 273.15
-for t in range(233,333):
-    t = t + 0.15 #Korrektur für Temperatur
-    #dt= (t- 273.15) # Bestimmung von delta T
-    c = 611.2*math.exp((-lvo + t*(cpv-cpi)*math.log(t)+to*(cpv-cpi))/(rv*t) -(2*to*(cpv-cpi)-lvo)/(to*rv))
-    cpp=np.append(cpp,c)
-print(cpp)
-plt.plot(te,mp, te, cp,te,cpp)
-plt.savefig('Vergleich2.png')
-plt.legend()
-
+# Aufgabe e)
 cppp = np.array([])
 lvo= 2.5*10**6
 rv = 461.4
@@ -53,10 +41,14 @@ cpi= 4187
 to = 273.15
 for t in range(233,333):
     t = t + 0.15 #Korrektur für Temperatur
-    #dt= (t- 273.15) # Bestimmung von delta T
-    c = 611.2*math.exp(-1*(lvo+(cpv-cpi)*(t-to))/(rv*(t+to))+(cpv-cpi)/(rv*(t+to)))
+    c = 611.2*math.exp(((cpv-cpi)/(lvo))*math.log(t)-((lvo - (cpv-cpi)*to)/(rv*t)))
     cppp=np.append(cppp,c)
-print(cppp)
-plt.plot(te,mp, te, cp,te,cpp)
-plt.savefig('Vergleich2.png')
+
+plt.plot(te,mp, label="Magnus")
+plt.plot(te,cp, label="Clausius-Clapperyeon")
+plt.plot(te,cppp, label="Clausius-Clapperyeon verbessert")
 plt.legend()
+plt.xlabel('Temperatur in °C')
+plt.ylabel('Sättigungsdamfpdruck in Pa')
+plt.savefig('Vergleich_Magnus_Classius_Classiusverbessert')
+

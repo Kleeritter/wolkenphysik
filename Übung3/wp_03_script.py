@@ -14,7 +14,7 @@ from matplotlib.ticker import ScalarFormatter
 radien=np.loadtxt("wp_03_data.txt")
 r_min= min(radien)#1e-8
 r_max= max(radien)
-n_bins= 150     
+n_bins= 1000     
 phi =  n_bins/(math.log10(r_max/r_min)) #hier keine Zahl, sondern eine Berechung mit obigen Parametern einfuegen!
 
 # A Begin
